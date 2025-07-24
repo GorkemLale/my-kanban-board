@@ -1,18 +1,32 @@
+import { useDraggable } from '@dnd-kit/core';
 import Button from '../../components/Button/Button';
 import './TaskCard.css';
 
 function TaskCard({ task, onEdit, onDelete}) {
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+        id: task.id,
+    });
+
+    const style = transform ? {
+        transform: `translat3d(${transform.x}.px, ${transform.y}px, 0)`,
+        opacity: isDragging ? 0.5 : 1,
+    } : undefined;
+
     return (
-        <div className="task-card">
+        <div
+            ref={setNodeRef}
+            style={style} 
+            className={`task-card" ${isDragging ? 'dragging' : ''}`}
+        >
             <div className="task-header">
-                <h3 className="task-title">
+                <h3 className="task-title" {...listeners} {...attributes}>
                     {task.title}
                 </h3>
-                <div clasName="task-actions">
-                    <Button onClick={() => onEdit(task)} className="btn-edit">
+                <div className="task-actions">
+                    <Button onClick={(e) => {e.stopPropagation(); onEdit(task); }} className="btn-edit">
                         ✏️
                     </Button>
-                    <Button onClick={() => onDelete(task.id)} className="btn-delete">
+                    <Button onClick={(e) => {e.stopPropagation(); onDelete(task.id); }} className="btn-delete">
                         🗑️
                     </Button>
                 </div>

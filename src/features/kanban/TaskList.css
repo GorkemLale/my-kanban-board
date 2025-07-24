@@ -4,6 +4,12 @@
     padding: 16px;
     min-height: 400px;
     width: 300px;
+    transition: background-color 0.2s;
+}
+
+.task-list-over {
+    background-color: #e3f2fd;
+    border: 2px dashed #2196f3;
 }
 
 .task-list-header {
