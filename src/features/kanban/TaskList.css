@@ -1,34 +1,40 @@
 .task-list {
-    background-color: #f4f5f7;
-    border-radius: 8px;
-    padding: 16px;
-    min-height: 400px;
-    width: 300px;
-}
+    background-color: #262626;
+    border-radius: 16px;
+    padding: 24px;
+    min-height: 404px;
+    width: 100%;
+    gap: 16px;
+    /* angle: 0 deg;  Anlamadım */
+    /* opacity: 1; */
+ }
 
 .task-list-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+    align-items: left;
+    background-color: #262626;  
+    border-radius: 16px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 37px;
+
 }
 
-.task-list-title{
+/* .task-list-title{
     margin: 0;
-    color: #333;
-    font-size: 32px;
-}
+    color: #ffffff;
+    text-align: left;
+    -webkit-text-stroke: 1px black;  Yazıya kontür yükledik :)
+    width: 320px;
+    height: 44px;
 
-.task-count {
-    background-color: #e9ecef;
-    color: #495057;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 16px;
-}
+} */
+
 
 .task-list-content {
     margin-bottom: 16px;
+    width: 100%;
 }
 
 .empty-list {
@@ -42,9 +48,28 @@
 
 .btn-add-task {
     width: 100%;
-    background-color: #6c757d;
+    background-color: inherit;
+    display: flex;
 }
 
 .btn-add-task:hover {
     background-color: #5a6268;
+    border-radius: 20px;
+}
+
+.gorev-ekle{
+    height: 50px;
+    width: 100%;
+    border-radius: 8px;
+    border: transparent;
+    background-color: transparent;
+    font-size: 20px;
+}
+.gorev-ekle:focus {
+    border: none;
+    outline: none;
+}
+
+.button-text {
+    font-size: 20px;
 }

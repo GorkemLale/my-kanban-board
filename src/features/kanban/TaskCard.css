@@ -1,24 +1,69 @@
 .task-card {
-    background-color: white;
-    border: 1px solid #ddd;
+    background-color: var(--card-color);
     border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
+    width: 100%;
+    transition: all 0.1s;
+    /* min-height: 150px; */
+    color: white;
 }
 
+.task-card-padding-div {
+    padding: 24px;
+}
+
+
 .task-header {
-    display: flex;
-    justify-content: space-between;  /* Flexible deyince title ile edit ve delete buton'ları tek satırda yapıştı. Bunun sayesinde butonlar gidebileceği kadar sağa uzaklaştı */
+    justify-content: flex;  /* Flexible deyince title ile edit ve delete buton'ları tek satırda yapıştı. Bunun sayesinde butonlar gidebileceği kadar sağa uzaklaştı */
+    width: 100%;
+    height: 24px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-family: SF Pro Text;
+}
+.task-card:hover {
+    /* opacity: 0.8; */
+    box-shadow: 0 0 0 2px var(--card-color); /* Border gibi görünür ama boyut değişmez */
+    cursor: pointer;
 }
 
 .task-title {
-    margin: 0;
-    color:#333;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 150%;
+}
+/* 
+leading-trim: NONE;
+line-height: 150%;
+letter-spacing: 0%; */
+
+.menu-edit-input {
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 550;
+    text-align: left;
+    line-height: 150%;
+}
+
+.menu-edit-input:focus {
+    outline: none;
+    opacity: 0.5;
+    border-radius: 8px;
 }
 
 .task-actions {
     display: flex;
-    gap: 8px;
+    height: 100%;
+
 }
 
 .btn-edit {
@@ -31,8 +76,8 @@
 
 .task-description {
     margin: 8px 0;
-    color: #666;
 }
+
 
 .task-footer {
     display: flex;
@@ -41,15 +86,15 @@
 }
 
 .task-id {
-    color: #999;
     font-size: 12px;
 }
 
 .priority-high {
-    background-color: #ffebee;
-    color: #d32f2f;
+    background-color: white;
+    color: var(--card-color);
     padding: 2px 8px;
     border-radius: 4px;
+    border: 1px solid white;
 }
 
 .priority-medium {
