@@ -18,10 +18,10 @@ function TaskList({ title, status, tasks = [], onAddTask, onEditTask, onDeleteTa
                 {title}
             </div>
 
-            <div style={{ height: '50px', display: 'flex', marginBottom: '10px' }}>
+            <div className="add-task-container">
                 <Button onClick={(e) => setGorevButton(!gorevButton)} className="btn-add-task"  style={{ height: '50px', alignItems: 'center', padding: '0px' }}>
    
-                            <div style={{ height: '20px', width: '20px', alignItems: 'center', marginRight: '20px', display: 'flex', marginLeft: '10px' }}>
+                            <div className="plus-icon-container">
                                 <img
                                     alt="+" src={plusIcon} style={{width: '20px', height: '20px'}}
                                 />
@@ -30,7 +30,7 @@ function TaskList({ title, status, tasks = [], onAddTask, onEditTask, onDeleteTa
 
                 {/* Geçişli button-input */}
                 {gorevButton ? (
-                    <div style={{ display: 'flex', width: '100%', height: '50px' }}>    
+                    <div className="input-container">    
                         <input className="gorev-ekle"
                             type="text"
                             placeholder="Görev başlığı..."

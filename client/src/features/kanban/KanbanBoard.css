@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+
+* {
+  font-family: 'SF Pro Text', sans-serif;
+}
+
+.kanban-board {
+    padding: 20px;
+    padding-top: 0;
+    background-color: #000000;
+    color:#ffffff;
+    width: 100%;
+    min-height: 100vh;  /* tüm ekranı siyah kaplasın demek */
+    height: auto;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+}
+
+.board-title-container {
+  /* text-align: left; */
+  margin-left: 0;
+  margin-bottom: 30px;
+  color: #ffffff;
+  font-size: 50px;
+  line-height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* padding: 0; */
+  font-weight: 600;
+}
+
+.board-title-text {
+  transform: translateX(-212%);
+}
+
+.board-lists {
+  display: flex;
+  gap: 16px;  /* içindeki elemanların aralığı  yukarıdaki flex'le bunlar yan yana geldi. şimdi de yapışık olmasınlar diye 20px aralık ekledik */
+  /* overflow-x: auto;   Tarayıcının içine ek yatay scroll ekler. Yani ölçek büyüdükçe aşağıya kaymaz artık */
+  justify-content: center;
+  align-items: flex-start;  /* üstten hizala demek. yani bunun sayesinde her list kendi yüksekliğine sahip olacak */
+  
+  padding-bottom: 20px;
+  min-height: 500px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .kanban-board {
+    padding: 16px;
+    padding-top: 0;
+  }
+  .board-title-container {
+    font-size: 42px;
+    line-height: 50px;
+    margin-bottom: 24px;
+  }
+  .board-lists {
+      gap: 12px;
+      min-width: 400px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .kanban-board {
+    padding: 10px;  /* Daha az padding */
+  }
+  .board-lists {
+    gap: 4px;
+  }
+}

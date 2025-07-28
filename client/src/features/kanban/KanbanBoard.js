@@ -11,10 +11,12 @@ function KanbanBoard() {
         '#C340A1', // flamingo
         '#9c27b0', // Üzüm
         '#ff9900ff', // mandalina
-        '#141313ff'  // kömür
+        '#101010ff',  // kömür
+        '#307FE2'  // gökyüzü
     ];
+    const resetColor = () => new Array(colors.length).fill(0);  // [0,0,0,0,0,0,0,0,0] diye array tanımlamak gibi. bu sayede yeni renk ekleyince array'i değiştirmemize gerek kalmayacak. 
 
-    const [colorFarklilastirici, setColorFarklilastirici] = useState([0,0,0,0,0,0,0,0]);
+    const [colorFarklilastirici, setColorFarklilastirici] = useState(resetColor());
     const [renkSayaci, setRenkSayaci] = useState(0);
     const [tasks, setTasks] = useState([
         { id: 1, title: 'Login sayfası tasarımı', description: 'Kullanıcı girişi için modern tasarım', priority: 'high', status: 'todo', color: "#D93535"},
@@ -59,9 +61,9 @@ function KanbanBoard() {
                     setRenkSayaci(renkSayaci + 1);
                     break;
                 } else {
-                    if (renkSayaci == 8) {
+                    if (renkSayaci >= 9) {  // 9'dan büyük eşittir yaptık çünkü güvenlik için. olur da 9'u anlık geçip de 10 olursa diye yaptık.
                         setRenkSayaci(0);
-                        setColorFarklilastirici([0,0,0,0,0,0,0,0]);
+                        setColorFarklilastirici(resetColor());  // Tek tek [0,0,0,0,0,0,0,0,0] yazmamak için ayrıca sadece renk eklediğimizde diğer değişikliklere gerek kalmayacak ve her şey otomatik olarak halledilecek.
                         break;
                     }
                     continue;
@@ -72,11 +74,11 @@ function KanbanBoard() {
     };
 
     // Görev düzenleme
-    const handleEditTask = (editedValue, whichOne, ID) => {
-        console.log(`Task'in ${whichOne}'ı ${editedValue} olarak değiştirildi. id=${ID}`);
+    const handleEditTask = (changes, ID) => {
+        console.log(`Task'in ${Object.keys(changes)}'ları ${Object.values(changes)} olarak değiştirildi. id=${ID}`);  // sabahtan beri hata alıyorum çünkü Object.argument(changes) diye bir şey yok, Object.values(changes) diye bir şey var ;)
         
         setTasks(tasks.map(t => 
-            t.id === ID ? {...t, [whichOne]: editedValue} : t  // map methotu içinde değişkeni veri başlığı(?) olarak kullanmak istiyorsan köşeli paranteze almalısın! 
+            t.id === ID ? {...t, ...changes} : t  // map methotu içinde değişkeni veri başlığı(?) olarak kullanmak istiyorsan köşeli paranteze almalısın! 
         ));
 
     };
@@ -99,7 +101,11 @@ function KanbanBoard() {
 
     return (
         <div className="kanban-board">
-            <h1 className="board-title">Kanban Board</h1>
+            <div className="board-title-container">
+                <div className="board-title-text">
+                    Kanban Board
+                </div>
+            </div>
 
             <div className="board-lists">
                 {['backlog','todo','inprogress','done'].map(listName => (
