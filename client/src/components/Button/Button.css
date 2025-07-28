@@ -8,6 +8,7 @@
   color: white;
   cursor: pointer;
   font-family: inherit;
+  gap: 8px;
 }
 
 .btn:hover {
