@@ -1,0 +1,291 @@
+.task-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.3s;
+    border-right: 4px solid var(--card-color);
+    /* min-height: 150px; */
+    height: auto;
+    /* border-right: 1px solid white; */
+    color: white;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 
+        inset -16px 0 0 0 #262626,
+        inset -18px 0 0 0 white;
+}
+
+.task-card-content {
+    padding: 24px;
+    padding-right: 12px;
+    width: 100%;
+}
+.task-card-padding-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+.move {
+    margin-left: auto;
+    padding: 0px 16px;
+}
+
+.task-header {
+    justify-content: flex;  /* Flexible deyince title ile edit ve delete buton'ları tek satırda yapıştı. Bunun sayesinde butonlar gidebileceği kadar sağa uzaklaştı */
+    width: 100%;
+    min-height: 24px;
+    height: auto;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    line-height: 150%;
+    letter-spacing: 0%;
+    font-family: SF Pro Text;
+}
+
+.task-card:hover {
+    /* opacity: 0.8; */
+    /* border-right: 4px solid white; */
+    border-right: 4px solid var(--card-color);
+    box-shadow: 
+        inset -28px 0 0 0 #191a1a,
+        inset -32px 0 0 0 white;  /* Border gibi görünür ama boyut değişmez */
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+.menu-edit-input {
+    resize: none;
+    overflow: hidden;
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    min-height: 24px;
+    max-height: 120px;
+    line-height: 150%;
+}
+
+.menu-edit-description {
+    resize: none;
+    overflow: hidden;
+    display: flex;
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    font-weight: 400;
+    text-align: left;
+    min-height: 24px;
+    max-height: 120px;
+    line-height: 150%;
+}
+
+
+.menu-edit-input:focus {
+    outline: none;
+    opacity: 0.5;
+    border-radius: 8px;
+}
+
+.menu-edit-description:focus {
+    outline: none;
+    opacity: 0.5;
+    border-radius: 8px;
+    color: white;
+}
+
+.task-actions {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+
+}
+
+
+
+/* Silme butonu stilleri */
+.delete-btn {
+    width: 20px;
+    height: 20px;
+    border: none;
+    border-radius: 50%;
+    background-color: #dc3545;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
+    padding: 0;
+    margin-left: 8px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(220, 53, 69, 0.4);
+}
+
+.delete-btn:active {
+    transform: scale(0.95);
+}
+
+.task-description {
+    text-align: left;
+}
+
+
+.task-footer {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 0px 8px; */
+    height: 100%;
+}
+
+.task-id {
+    font-size: 12px;
+}
+
+.priority-high {
+    background-color: white;
+    color: red;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border-left: 4px solid #dc3545;
+}
+
+.priority-medium {
+    background-color: white;
+    color: #f57c00;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border-left: 4px solid #f57c00;
+}
+
+.priority-low {
+    background-color: white;
+    color: #388e3c;
+    border-radius: 4px;
+    border-left: 4px solid #388e3c;
+}
+
+/* Color Picker Stilleri */
+.task-color {
+    position: relative;
+    display: inline-block;
+}
+
+/* Ana renk gösterici buton */
+.color-display {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--color);
+    border: 2px solid #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.color-display:hover {
+    transform: scale(1.1);
+    border-color: #999;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.color-display:active {
+    transform: scale(0.95);
+}
+
+/* Dropdown menü */
+.color-menu-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 8px;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    min-width: 120px;
+    margin-top: 4px;
+    animation: colorMenuAppear 0.15s ease-out;
+}
+
+/* Dropdown animasyonu */
+@keyframes colorMenuAppear {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-8px);
+        scale: 0.9;
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+        scale: 1;
+    }
+}
+
+/* Renk seçenekleri */
+.color-option {
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.color-option:hover {
+    background-color: #f5f5f5;
+}
+
+.color-option.selected {
+    background-color: #e3f2fd;
+}
+
+/* Renk daireleri */
+.color-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+}
+
+.color-option:hover .color-circle {
+    transform: scale(1.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Seçili renk işareti */
+.checkmark {
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    animation: checkmarkAppear 0.2s ease-out;
+}

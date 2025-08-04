@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Kanban Board Uygulaması
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Proje Açıklaması
+Bu proje, görev yönetimi için geliştirilmiş bir Kanban Board uygulamasıdır. React frontend, MongoDB veritabanı ve Node.js backend kullanılarak geliştirilmiştir.
 
-## Available Scripts
+## Kullanılan Teknolojiler
+- Frontend: React.js
+- Backend: Node.js, Express
+- Veritabanı: MongoDB
+- Styling: CSS
 
-In the project directory, you can run:
+## Proje Yapısı
+- `client/`: React frontend uygulaması
+- `server/`: Node.js backend API'si
 
-### `npm start`
+## Projeyi başlatmak için iki ayrı terminale ihtiyacınız vardır. (biri  backend, biri frontend)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Kurulum ve Çalıştırma
+1. Backend kurulumu:
+   ```bash
+   cd server
+   npm install  -> package.json'da tanımlı olan dependencies bölümündekileri indirir.
+   npm start -> Projeyi başlatabilirsiniz
+   ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. Frontend kurulumu:
+   ```bash
+   cd client
+   npm install
+   npm start
+   ```
 
-### `npm test`
+## API Endpoints
+- GET /api/tasks/:boardId - Görevleri listele
+- POST /api/tasks/:boardId - Yeni görev ekle
+- PUT /api/tasks - Görev güncelle
+- DELETE /api/tasks - Görev sil
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## API Testleri
+Proje içerisinde `postman_collection.json` dosyası bulunmaktadır. Bu dosyayı Postman'e import ederek tüm API endpoint'lerini test edebilirsiniz.
 
-### `npm run build`
+**Postman Collection Kullanımı:**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 1. Collection'ı Import Etme
+1. Postman uygulamasını açın
+2. Sol üst köşedeki "Import" butonuna tıklayın
+3. "Upload Files" sekmesinde `postman_collection.json` dosyasını seçin
+4. "Import" butonuna tıklayın
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 2. Variable Ayarlama
+1. Sol paneldeki "Kanban Board API" adlı alana tıklayın.
+2. Sağ panelde çıkan "Variables Sekmesine tıklayın.
+3. `baseUrl` variable'ını bulun ve şu şekilde ayarlayın:
+   - **Initial Value**: `http://localhost:5000`
+   - **Current Value**: `http://localhost:5000`
+4. Sağ panelin hemen yukarısında yer alan "Save" butonuna tıklayın
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Test Çalıştırma
+1. Collection içindeki herhangi bir endpoint'e tıklayın
+2. Sağ panelde "Send" butonuna basın
+3. Alt panelde response'u görüntüleyin
 
-### `npm run eject`
+### 4. Environment Kullanımı (Opsiyonel)
+Farklı ortamlar için environment oluşturabilirsiniz:
+1. Sağ üst köşede "Environment" dropdown'ına tıklayın
+2. "Add" seçeneğini seçin
+3. Environment adı: "Development"
+4. Variable ekleyin:
+   - **Variable**: `baseUrl`
+   - **Initial Value**: `http://localhost:5000`
+   - **Current Value**: `http://localhost:5000`
+5. "Save" butonuna tıklayın
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 5. Test Sonuçları
+- ✅ **200 OK**: Başarılı işlem
+- ❌ **404 Not Found**: Endpoint bulunamadı
+- ❌ **500 Internal Server Error**: Sunucu hatası
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Geliştirme Süreci
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend Geliştirme
+Önce Figma'daki tasarımı inceledim ve frontend kısmını React kullanarak geliştirdim. Component yapısı sırasıyla:
+- **KanbanBoard** → **TaskList** → **TaskCard** → **Button**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Responsive tasarım ve Drag & Drop konuları karmaşıklaşınca backend geliştirmeye geçtim.
 
-## Learn More
+### Backend Geliştirme
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### 1. Temel Yapılandırma
+İlk olarak `server.js` dosyasına Express uygulamasını oluşturdum ve `app.get('/')` test route'unu ekledim. Sonra `app.listen()` sadece `server.js`'te kaldı ve ana sayfa (test route) `app.js`'e taşındı. `app.js` export edilip `server.js`'e import edilerek kullanıldı.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 2. Middleware Yapılandırması
+`app.js`'te aşağıdaki middleware'leri ekledim:
+- `app.use(express.json())` - JSON parsing
+- `app.use(express.urlencoded({ extended: true }))` - URL-encoded parsing  
+- `app.use(cors())` - Cross-Origin Resource Sharing
 
-### Code Splitting
+**Önemli Not:** Middleware'lerin route'lardan önce tanımlanması gerekiyor. Aksi takdirde `express.json()` için problem olur, `morgan` için sadece terminalde istek görmeyiz.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### 3. Veritabanı Modelleri
+MongoDB için `Board.js` ve `Task.js` şemalarını oluşturdum. Her collection için MongoDB arka planda ID tutar, ama board için özel bir ID tutuyoruz ki board'u görüntüleyebilmek için URL'de daha okunaklı bir şey kullanabilelim.
 
-### Analyzing the Bundle Size
+#### 4. Route Yapısı
+`routes/` klasörü altında `boards.js` ve `tasks.js` dosyalarını oluşturdum. Bu route'ları `app.js`'e import edip kullandım. Route'ları middleware'lerden sonra tanımladım çünkü bu önemli - `app.use('/api/boards', boardRoutes)` gibi.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+#### 5. Controller ve Business Logic
+Route'lar içinde board için CRUD işlemlerindeki business logic'leri tanımladım. Rastgele ID üretimi için fonksiyon oluşturdum. İşimiz bitince bu fonksiyonu `utils/` klasörüne taşıyıp export edip import edeceğiz.
 
-### Making a Progressive Web App
+Ayrıca her route method'unun business logic'ini de controller altına taşıyacağız.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### 6. API Testleri
+Her route için her endpoint için yazılan methodların testini Postman programıyla kontrolünü gerçekleştirdim. Tüm CRUD işlemleri başarıyla test edildi ve doğru çalıştığı doğrulandı. 

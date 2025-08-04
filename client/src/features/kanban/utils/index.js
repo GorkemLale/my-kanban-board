@@ -1,0 +1,1 @@
+export { colorPalette, getRandomColor } from './colorUtils';

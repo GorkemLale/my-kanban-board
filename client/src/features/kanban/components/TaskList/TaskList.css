@@ -20,7 +20,7 @@
     align-items: center;
     background-color: transparent;  
     border-radius: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
     font-weight: 700;
     font-size: 37px;
     color: white;
@@ -40,32 +40,26 @@
 .add-task-container {
     height: 50px;
     display: flex;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
 }
 
 .plus-icon-container {
-    height: 20px;
-    width: 20px;
+    height: 50px;
+    width: 50px;
     align-items: center;
     margin: 0 20px 0 10px;
     display: flex;
 }
 
-.input-container {
+.add-task-text {
     display: flex;
     width: 100%;
     height: 50px;
+    font-size: 25px;
+    font-weight: 500;
+    align-items: center;
 }
 
-/* .task-list-title{
-    margin: 0;
-    color: #ffffff;
-    text-align: left;
-    -webkit-text-stroke: 1px black;  Yazıya kontür yükledik :)
-    width: 320px;
-    height: 44px;
-    
-    } */
 
 
 .task-list-content {
@@ -80,10 +74,13 @@
     width: 100%;
     background-color: inherit;
     display: flex;
+    border: none;
+    box-shadow: 0 0 0 1px transparent; /* eğer bunu yapmazsak alttaki hover'dan kalan izleri gösteriyor */
+
 }
 
 .btn-add-task:hover {
-    border-radius: 8px;
+    border-radius: 16px;
     background-color: #191a1a;
     color: rgba(255, 255, 255, 0.6);
     box-shadow: 0 0 0 1px white; /* Border gibi görünür ama boyut değişmez */
@@ -92,48 +89,4 @@
 .btn-add-task:focus-within {
     background-color: #191a1a;
     border-radius: 8px;
-}
-.gorev-ekle{
-    height: 42px;
-    width: 100%;
-    /* border-radius: 8px; */
-    border: transparent;
-    background-color: transparent;
-    font-size: 20px;
-    caret-color: white;
-    color: white;
-    padding: 4px 0px;
-}
-
-.gorev-ekle:focus {
-    border: none;
-    outline: none;
-    
-}
-
-.button-text {
-    font-size: 20px;
-}
-
-@media (max-width: 768px) {
-    .task-list {
-    border-radius: 16px;
-    padding: 16px;
-    min-height: 200px;
-    min-width: 100px;
-    max-width: 150px;
-    gap: 16px;
-    flex: 1;
-        min-width: 25%;
-        max-width: 25%;
-        min-height: 300px;;
-    }
-
-    .task-list-header {
-        font-size: 28px;
-        margin-bottom: 16px;
-    }
-    .btn-add-task {
-        height: 40px;
-    }
 }
