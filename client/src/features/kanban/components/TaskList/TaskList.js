@@ -1,9 +1,9 @@
 import { TaskCard } from '../TaskCard';
 import Button from '../../../../components/Button/Button';
 import './TaskList.css';
-import plusIcon from '../../assets/plus.png'
+import plusIcon from '../../../../assets/plus.png'
 import { useState } from 'react';
-import { getRandomColor } from '../../utils/';
+import { getRandomColor } from '../../../utils';
 
 
 
@@ -42,22 +42,23 @@ export function TaskList({ title, status, tasks = [], onAddTask, onEditTask, onD
                 </Button>
             </div>
 
-            {isAdding && (
-                <TaskCard
-                    isNew={true}
-                    task={{ title: '', description: '', priority: 'medium', color: newTaskColor }}
-                    onEdit={onEditTask}
-                    onDelete={onDeleteTask}
-                    onSave={(taskData) => {  // bunu burada tanımlıyoruz, parent olan KanbanBoard'dan kalıtmıyoruz. TaskCard buradan kalıtıyor.
-                        console.log("işte değerimiz bu:", taskData, typeof taskData);
-                        onAddTask(status, taskData);
-                        setIsAdding(false);
-                    }}
-                    onCancel={() => setIsAdding(false)}
-                />
-            )}
             
             <div className="task-list-content">
+                {isAdding && (
+                    <TaskCard
+                        isNew={true}
+                        task={{ title: '', description: '', priority: 'medium', color: newTaskColor }}
+                        onEdit={onEditTask}
+                        onDelete={onDeleteTask}
+                        onSave={(taskData) => {  // bunu burada tanımlıyoruz, parent olan KanbanBoard'dan kalıtmıyoruz. TaskCard buradan kalıtıyor.
+                            console.log("işte değerimiz bu:", taskData, typeof taskData);
+                            onAddTask(status, taskData);
+                            setIsAdding(false);
+                        }}
+                        onCancel={() => setIsAdding(false)}
+                    />
+                )}
+
                 {tasks.map(task => (  // div döndürmeye gerek yok zaten TaskCard Component'ini tanımlarken gerekli tanımlamalar yapıldı. biz sadece input vereceğiz.
                     <TaskCard 
                         key={task._id}

@@ -1,0 +1,185 @@
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../../fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../../fonts/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../../fonts/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../../fonts/SFPRODISPLAYTHINITALIC.OTF') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SF Pro Text';
+  src: url('../../../fonts/SFPRODISPLAYBLACKITALIC.OTF') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    min-width: 1400px;  /* çok zoomlayınca sağda boşluk kalıyordu */
+}
+
+.header-div {
+    background-color: #262626;  /* transparent yapacağım, göreyim diye farklı */
+    height: 48px;
+    min-width: 1400px;
+    display: flex;
+    padding: 8px;
+}
+
+.icon-and-title {
+    padding-right: 50px;
+    /* padding-left: 20px; */
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+
+.side-button-div {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.side-button-div:hover {
+    background-color: rgba(255, 255 , 255, 0.1);
+    border-radius: 50%;
+}
+.side-icon-div {
+    display: flex;  /* şu üç satır ortalamak için muhtişim üçlü */
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+}
+
+
+.site-title {
+    font-weight: 400;
+    font-size: 30px;
+    color: white;
+    padding-left: 20px;
+}
+
+.search-div {
+    height: 60px;
+    margin-right: 50px;
+    margin-left: 50px;
+}
+
+.search-input {
+    min-height: 24px;
+    max-height: 60px;
+    resize: none;
+    overflow: hidden;
+    background-color: inherit;
+    display: flex;
+    border: none;
+    box-shadow: 0 0 0 1px transparent; /* eğer bunu yapmazsak alttaki hover'dan kalan izleri gösteriyor */
+    line-height: 150%;
+
+}
+
+
+.side-bar {
+    background-color: #262626;
+    height: 100vh;
+    width: 256px;
+    padding: 20px;
+    position: fixed;  /* Element sayfada sabit pozisyonda kalır, scroll etmez */
+    left: -296px;  /* Sol taraftan 296px dışarıda (gizli) */ /* (256px değil çünkü padding'ler büyüttü) */
+    /* top: 48px; */
+    transition: left 0.3s ease;  /* left değeri değişirken 0.3s smooth animasyon */
+    z-index: 1000;  /* Diğer elementlerin üstünde görünür (katman sırası) */
+}
+
+.side-bar.open {
+    left: 0;  /* açık durumda görün */
+}
+
+.main-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    transition: margin-left 0.3s ease;
+}
+
+.main-page.sidebar-open {
+    margin-left: 256px;  /* Sidebar açıkken kaydır ???*/
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    z-index: 1501;
+}
+
+.boards {
+    display: flex;
+    justify-content: center;
+    padding: 50px 10%;
+    min-width: 1300px;
+}
+
+.board-list {
+    background-color: #262626;
+    border-radius: 16px;
+    padding: 20px;
+    min-height: 200px;
+    gap: 16px;
+    width: 100%;
+    width: 1260px;
+}
+
+
+
+.board-list-content {
+    display: grid;
+    grid-template-columns: repeat(4, 300px);  /* auto-fit yerine 4 koyabilirim */
+    gap: 20px;
+}
+
+.empty-list {
+    background-color: rgba(255, 255 , 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    border: 2px dashed rgba(red, green, blue, 0.3);
+    border-radius: 8px;
+    padding: 40px 20px; 
+    font-weight: 300;
+}

@@ -1,6 +1,6 @@
 import './App.css';
 import { KanbanBoard } from './pages/BoardPage';
-import { default as HomePage } from './pages/HomePage';  // default export için böyle import edilir.
+import { default as HomePage } from './features/board/components/HomePage';  // default export için böyle import edilir.
 import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 
 function App() {

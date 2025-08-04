@@ -118,7 +118,7 @@ export function KanbanBoard() {
                 </div>
             </div>
 
-            <div className="board-lists">
+            <div className="task-lists">
                 {['backlog','todo','inprogress','done'].map(listName => (
                     <TaskList
                         key={listName}

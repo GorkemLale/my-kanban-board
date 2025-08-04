@@ -35,14 +35,14 @@ const boardController = {  // Object içinde tanımlayacağımız için Key şek
 
     createBoard: async (req, res) => {
         try {
-            const { title, description } = req.body;  // await neden gereksiz
+            const { title, description, color } = req.body;  // await neden gereksiz
             const uniqueId = await generateUniqueId();
     
             const newBoard = new Board({
                 id: uniqueId,
                 title,
                 description,  // lastVisited, taskCount falan default'tan atanıyor. Bu yüzden default'u olmayanları almak yetiyor sadece.
-                color: '#ffffff'
+                color: color
             });
     
             await newBoard.save();

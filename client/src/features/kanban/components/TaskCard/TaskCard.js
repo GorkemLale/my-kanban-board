@@ -1,8 +1,8 @@
 import Button from '../../../../components/Button/Button';
 import './TaskCard.css';
-import descriptionIcon from '../../assets/description-icon.png';
+import descriptionIcon from '../../../../assets/description-icon.png';
 import { useState, useEffect, useRef } from 'react';
-import { colorPalette } from '../../utils/colorUtils';
+import { colorPalette } from '../../../utils/colorUtils';
 // React Strict Mode: Beklenmedik yan etkileri tespit eder. Component'i kasıtlı olarak iki kez render ederek yan etkileri ortaya çıkarır.
 
 
@@ -58,8 +58,8 @@ export function TaskCard({ task, isNew = false, onEdit, onDelete, onSave, onCanc
                         console.log("değerss kayıtsss edilss");
                     }
                 }
-                setIsEditing(false);
                 setShowMenu(false);
+                setIsEditing(false);
                 setShowPriorityMenu(false);
                 setShowColorMenu(false);
             }

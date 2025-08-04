@@ -72,7 +72,7 @@
   transform: translateX(-212%);
 }
 
-.board-lists {
+.task-lists {
   display: flex;
   gap: 16px;  /* içindeki elemanların aralığı  yukarıdaki flex'le bunlar yan yana geldi. şimdi de yapışık olmasınlar diye 20px aralık ekledik */
   /* overflow-x: auto;   Tarayıcının içine ek yatay scroll ekler. Yani ölçek büyüdükçe aşağıya kaymaz artık */
