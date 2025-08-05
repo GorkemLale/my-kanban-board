@@ -5,6 +5,7 @@ import './HomePage.css';
 import axios from 'axios';
 import sideBarIcon from '../../../assets/side-bar.png'
 import Button from '../../../components/Button/Button';  // iki defa buton çünkü bir tanesi de klasör adı. ileride başka ortak component'ler eklenir diye kendi klasöründe tanımladım.
+import plusIcon from '../../../assets/plus.png';
 
 function HomePage() {
     const [boards, setBoards] = useState([]);
@@ -12,8 +13,13 @@ function HomePage() {
     const [Visited, setVisited] = useState([]);
     const [isSideBar, setIsSideBar] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
-    const [editData, setEditData] = useState("");
-    
+    const [createData, setCreateData] = useState({
+        title: "",
+        description: "",
+        color: ""
+    });
+
+
     const deneme_visited = [
         {_id: '6890616b3f0a7bc9748c8c67', id: 'qshctsf2', title: 'dsaasd', taskCount: 0, color: '#6A6DCD'}, 
         {_id: '6888eefcd9cd1adb467f5a2f', id: 'test1234', title: 'xxxxxxxxxxxxxxxxxxx', description: '', taskCount: 4, color: '#6A6DCD'}, 
@@ -21,22 +27,10 @@ function HomePage() {
         {_id: '68890cc7ec007520ce98efbd', id: 'r70x6vu5', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
         {_id: '68890cc7ec007520ce98efba', id: 's2mdnbzl', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
         {_id: '68890cc6ec007520ce98efb7', id: 'nyamdidk', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890cc3ec007520ce98efb4', id: '4rek4i0s', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890c4eafdad25ebd331653', id: 'w0ak9793', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890c4dafdad25ebd331650', id: 'miv533fz', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890c4cafdad25ebd33164d', id: 'oc4ugb8c', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890c4bafdad25ebd33164a', id: 'p21gw38p', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890c4aafdad25ebd331647', id: '8512cymx', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '688908300e6cc6ddefbb4f37', id: 'e6cywu90', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6889082e0e6cc6ddefbb4f34', id: 'i8xqhhvr', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6889082c0e6cc6ddefbb4f31', id: 'tygi9iwu', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6889079b44169c53ce66f5cf', id: 'toor2f3j', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6888ef0dd9cd1adb467f5a4a', id: 'ofnp1ofq', title: 'titleReturnsuz çalışır mı?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6888ef0cd9cd1adb467f5a47', id: 'buawknfx', title: 'titleReturnsuz çalışır mı?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6888ef08d9cd1adb467f5a44', id: '8j78jv84', title: 'titleReturnsuz çalışır mı?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}
+        {_id: '68890cc3ec007520ce98efb4', id: '4rek4i0s', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}
     ];
 
-    const currentEditData = useRef(editData);
+    const currentCreateData = useRef({});
 
     useEffect(() => {
         const fetchtAllBoards = async () => {
@@ -60,7 +54,7 @@ function HomePage() {
         try {
             setLoading(true);
             
-            const currentData = currentEditData.current;
+            const currentData = currentCreateData.current;
             const response = await axios.post('/api/boards/', {  // ulan yine az kala await unutuyordun
                 title: currentData.title.trim() || "New Board",
                 description: currentData.description?.trim() || "",  // boardData.description?.trim()'deki soru işareti(?) niye?
@@ -77,6 +71,29 @@ function HomePage() {
             console.error("Board oluşturma hatası", err);
             alert("Board oluşturulamadı.")
 
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const editBoard = async (changes, boardId) => {
+        try {
+            setLoading(true);
+
+            const boardToUpdate = boards.find(b => b._id === boardId);  // local'deki listede güncellenmek istenen id'ye ait board'in tüm element'leriyle güncel halini çekiyoruz.
+            const updatedBoard = {...boardToUpdate, ...changes};
+            const response = await axios.put(`/api/boards/${boardToUpdate.id}`, updatedBoard);  // changes gönderemiyoruz çünkü eğer changes title içermiyorsa validator create methoduyla ortak kullanıldığından title zorunlu tanımlandığı için tüm veriyi gönderiyoruz, güncellenmeyenleri de.
+            console.log("board güncellendi: ", response.data);
+
+            // Backend'e güncelleme gönderme 
+            setBoards(boards.map(b => 
+                b._id === boardId ? updatedBoard : b  // map methotu içinde değişkeni veri başlığı(?) olarak kullanmak istiyorsan köşeli paranteze almalısın! 
+            ));  // veya           {...b, ...changes} (önceden böyleydi) kullanırsın updatedBoard yerine
+            
+            
+        } catch (err) {
+            console.error('Board düzenlenirken hata oluştu: ', err);
+            alert("board düzenlenemedi");
         } finally {
             setLoading(false);
         }
@@ -111,15 +128,22 @@ function HomePage() {
             <div className={`main-page ${isSideBar ? 'sidebar-open' : ''}`}>
                 <div className={`side-bar ${isSideBar ? 'open' : ''}`}>
                     {/* Sidebar içeriği */}
-                    <div className='boardCreateDiv'>
+                    <div className='add-board-container'>
                         <Button
                             onClick={() => setIsCreating(true)}
                             className="btn-create-board"
                         >
-
+                            <div className='plus-icon-container'>
+                                <img alt='+' src={plusIcon} style={{width: '20px', height: '20px'}}/>
+                            </div>
+                            <div>
+                                <div className='create-board-text'>
+                                    Create
+                                </div>
+                            </div>
                         </Button>
-                    </div>
 
+                    </div>
                     <h3>Recent Boards</h3>
                     {deneme_visited.slice(0, 5).map(board => (
                         <div key={board._id} className="sidebar-board-item">
@@ -133,21 +157,28 @@ function HomePage() {
                         >
                             <div className='modal-content' onClick={(e) => e.stopPropagation()}>
                                 <h2>Create New Board</h2>
-                                <input 
-                                    type='text' 
+                                <textarea 
                                     placeholder='Board Title'
-                                    onChange={(e) => setEditData(prev => {
+                                    onChange={(e) => setCreateData(prev => {
                                         const newData = {...prev, title: e.target.value};
-                                        currentEditData.current = newData;
+                                        currentCreateData.current = newData;
                                         console.log("board Oluşturmada değişimlerss", newData);
                                         return newData;
                                     })}
                                 />
-                                <textarea placeholder='Description' />
+                                <textarea
+                                    placeholder='Description' 
+                                    onChange={(e) => setCreateData(prev => {
+                                        const newData = {...prev, description: e.target.value};
+                                        currentCreateData.current = newData;
+                                        console.log("board Oluşturmada değişimlerss", newData);
+                                        return newData;
+                                    })}
+                                />
                                 <div>
-                                        <button onClick={() => setIsCreating(false)}>cancel</button>
+                                        <button onClick={() => setIsCreating(false)}>Cancel</button>
                                         <button
-                                            onClick={() => createBoard(editData)}
+                                            onClick={() => createBoard(createData)}
                                         >Create</button>
                                 </div>
                             </div>
@@ -160,6 +191,7 @@ function HomePage() {
                                 <BoardCard 
                                     key={board._id}  // ._id daha iyi bir seçenek olacaktır. kanımca daha hızlı. doğru mu diye araştır!!!
                                     board={board}
+                                    onEdit={editBoard}
                                 />
                             ))}
 

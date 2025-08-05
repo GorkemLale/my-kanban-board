@@ -2,38 +2,45 @@ import { useState, useEffect } from 'react';
 import { TaskList } from '../TaskList';
 import './KanbanBoard.css';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 export function KanbanBoard() {
+    const { boardId } = useParams();  // boardId'yi url'den çekiyoruz.
     const [tasks, setTasks] = useState([]);
-    const [boardId] = useState('test1234');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     
+    const navigate = useNavigate();
 
+    const goToMain = () => {
+        navigate('/');
+    };
 
     useEffect(() => {  // sayfa ilk açıldığı zaman çalılır ve tüm taskleri localdeki tasks dizisine eşitler
+        if (boardId) {        
         const fetchTasks = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-                console.log("API çağrısı zamannııııı");
-                const response = await axios.get(`/api/tasks/${boardId}`);
-                console.log(response.data.data);
-                setTasks(response.data.data || []);  // Olur da boş dönerse kafayı yeme aslan perçası
-            } catch (err) {
-                console.error("API error", err);
-                setError("Görevler yüklenemedi");
-                if (err.response?.status === 404) {  // burası
-                    setTasks([]);  // olur da catch'ten öncekinde atamaya gelmeden hata olur da catch'e atlar diye
+                try {
+                    setLoading(true);
+                    setError(null);
+                    console.log("API çağrısı zamannııııı");
+                    const response = await axios.get(`/api/tasks/${boardId}`);
+                    console.log(response.data.data);
+                    setTasks(response.data.data || []);  // Olur da boş dönerse kafayı yeme aslan perçası
+                } catch (err) {
+                    console.error("API error", err);
+                    setError("Görevler yüklenemedi");
+                    if (err.response?.status === 404) {  // burası
+                        setTasks([]);  // olur da catch'ten öncekinde atamaya gelmeden hata olur da catch'e atlar diye
+                    }
+                } finally {
+                    setLoading(false);
                 }
-            } finally {
-                setLoading(false);
-            }
-        };
-        
-        fetchTasks();
+            };
+            
+            fetchTasks();
+        }
     }, [boardId]);
 
 
@@ -116,6 +123,11 @@ export function KanbanBoard() {
                 <div className="board-title-text">
                     Kanban Board
                 </div>
+                <button
+                    onClick={() => goToMain()}
+                >
+                    Back
+                </button>
             </div>
 
             <div className="task-lists">

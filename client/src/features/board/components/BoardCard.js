@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { colorPalette } from '../../utils/colorUtils';
 import './BoardCard.css';
 import descriptionIcon from '../../../assets/description-icon.png';
+import { useNavigate } from 'react-router-dom';
 
 
 function BoardCard ({ board, onEdit, onDelete }) {
@@ -10,12 +11,45 @@ function BoardCard ({ board, onEdit, onDelete }) {
     const [isEditing, setIsEditing] = useState(false);
     const [showColorMenu, setShowColorMenu] = useState(false);
 
+    const navigate = useNavigate();
+    const goToBoard = (boardId) => {
+        navigate(`/${boardId}`);
+    };
+    
 
     const titleRef = useRef(null);  // useRef de değişken saklar ama state gibi re-render olmaz. COM element referansı tutmak için kullanılır.
     const descriptionRef = useRef(null);
     const boardCardRef = useRef(null);
     const currentEditData = useRef(editData);
     
+    useEffect(() => {  // ÇOK ÖNEMLİ: Sadece isEditing değişince çalışmaz, component mount aşamasında da çalışır!!!
+        console.log("useEffect çalışıııyor", isEditing);
+        const handleClickOutside = (event) => {
+            // boardCard dışına tıklandıysa
+            if (boardCardRef.current && !boardCardRef.current.contains(event.target)) {  // boardCardRef'in current'ı varsa ve current'u event'in target'ını içermiyorsa bu koşul ifadesine girer.
+                // Save işlemi yap (sadece yeni board için) 
+                if (isEditing) {
+                        saveAllChanges();  // mevcut board için batch save
+                        console.log("değerss kayıtsss edilss");
+                }
+                setShowMenu(false);
+                setIsEditing(false);
+                setShowColorMenu(false);
+            }
+        };
+
+        // başlangıçta isNew false olduğu için görev oluşturma anında girer sadece buraya. düzenleme yaptığın zaman false olan isNew yüzünden sadece cleanup çalışır. Bu yüzden isNew şartını hem buradan hem de dependecy array'den kaldırdım çünkü isNew true olduğu zaman isEditing de true oluyor.
+        if (isEditing) {  // bu sayede listener sadece gerektiğinde eklenir. listener tıklamamızı bekler mouse click'ine basılı tutulduğu anda ise görevini yerine getirir ve içindeki fonksiyonu gerçekleştirir. Eğer bu koşul olmasaydı sayfaya her tıklandığında daha tık bırakılmadan aktif olurdu ve habire onları false ederdi. Yani gereksiz şekilde dinleme ve her girdiye değer atama yapmaya çalışırdık (Performans).
+            document.addEventListener('mousedown', handleClickOutside);  // mousedown: fareye basılı tutulduğu an iken 'click' basıp bıraktığın andır. mousedown drag(sürükleme) başlangıcını yakalayabilir ama 'click' yakalayamaz.
+            console.log("listener başladı");
+            return () => {
+                document.removeEventListener('mousedown', handleClickOutside);
+                console.log("bitişşş");
+            };
+        }
+
+    }, [isEditing]);
+
     const handleAutoResize = (textareaRef) => {
         if (textareaRef.current) {
             textareaRef.current.style.height = 'auto';
@@ -247,7 +281,9 @@ function BoardCard ({ board, onEdit, onDelete }) {
                             </div>
                 </div>
             </div>
-             <div className='move'>
+             <div className='move'
+                onClick={() => (goToBoard(board.id), console.log(board.id))}
+             >
 
             </div>
         </div>

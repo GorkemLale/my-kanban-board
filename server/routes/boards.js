@@ -64,7 +64,7 @@ router.post('/', boardValidation, checkBoardValidation, boardController.createBo
 
 router.get('/:id', boardController.getBoardById);
 
-router.put('/:id', boardValidation, checkBoardValidation, boardController.updateBoard);
+router.put('/:id', boardValidation, checkBoardValidation, boardController.updateBoard);  // şimdilik board validation sıkıntılı o yüzden kaldırdık.
 
 router.delete('/:id', boardController.deleteBoard);
 
