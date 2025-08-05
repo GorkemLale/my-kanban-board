@@ -12,8 +12,24 @@ function BoardCard ({ board, onEdit, onDelete }) {
     const [showColorMenu, setShowColorMenu] = useState(false);
 
     const navigate = useNavigate();
-    const goToBoard = (boardId) => {
-        navigate(`/${boardId}`);
+    const goToBoard = (board) => {
+        // localStorage'a ekleme işlemi
+        let recent = JSON.parse(localStorage.getItem('recentVisitedBoards'))  || [];
+
+        const boardToVisitAgain = {
+            id: board.id,
+            title: board.title,
+            color: board.color
+        };
+        // tekrar eden varsa çıkar, başa ekle
+        recent = recent.filter(id => id !== board.id);  // eşit olan eklenmedi, sonra devam edildi ve tüm eşit olmayanlar eklendi.
+        recent.unshift(boardToVisitAgain);  // başa ekleme
+
+        recent = recent.slice(0, 5);  // max 5 kayıt tuttuk. eğer tekrar eden yoksa 6'ya çıktı bağıl olarak. onu tekrar 5'e düşür. 0'dan 5'e kadar al yani 0, 1, 2, 3, 4'ü al.
+        
+        localStorage.setItem('recentVisitedBoards', JSON.stringify(recent));  // son halini yani tekrar edenli veya edensiz nihai 5 elemanlı halili 'recentVisitedBoards' adlı yere ekle.
+
+        navigate(`/${board.id}`);
     };
     
 
@@ -282,7 +298,7 @@ function BoardCard ({ board, onEdit, onDelete }) {
                 </div>
             </div>
              <div className='move'
-                onClick={() => (goToBoard(board.id), console.log(board.id))}
+                onClick={() => (goToBoard(board), console.log(board))}
              >
 
             </div>

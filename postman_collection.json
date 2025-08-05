@@ -1,204 +1,248 @@
 {
-  "info": {
-    "name": "Kanban Board API",
-    "description": "Kanban Board uygulaması için tüm API endpoint'leri",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Tasks",
-      "description": "Görev yönetimi için endpoint'ler",
-      "item": [
-        {
-          "name": "Get All Tasks",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/tasks/test1234",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tasks", "test1234"]
-            },
-            "description": "Belirli bir board'a ait tüm görevleri getirir"
-          }
-        },
-        {
-          "name": "Create Task",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Yeni Görev\",\n  \"description\": \"Görev açıklaması\",\n  \"status\": \"todo\",\n  \"priority\": \"medium\",\n  \"color\": \"#00A88B\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tasks/test1234",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tasks", "test1234"]
-            },
-            "description": "Yeni bir görev oluşturur"
-          }
-        },
-        {
-          "name": "Update Task",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"_id\": \"task_id_here\",\n  \"title\": \"Güncellenmiş Görev\",\n  \"description\": \"Güncellenmiş açıklama\",\n  \"status\": \"inprogress\",\n  \"priority\": \"high\",\n  \"color\": \"#6A6DCD\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tasks",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tasks"]
-            },
-            "description": "Mevcut bir görevi günceller"
-          }
-        },
-        {
-          "name": "Delete Task",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"_id\": \"task_id_here\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/tasks",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "tasks"]
-            },
-            "description": "Bir görevi siler"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Boards",
-      "description": "Board yönetimi için endpoint'ler",
-      "item": [
-        {
-          "name": "Get All Boards",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/boards",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "boards"]
-            },
-            "description": "Tüm board'ları listeler"
-          }
-        },
-        {
-          "name": "Create Board",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Yeni Board\",\n  \"description\": \"Board açıklaması\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/boards",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "boards"]
-            },
-            "description": "Yeni bir board oluşturur"
-          }
-        },
-        {
-          "name": "Get Board By ID",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/boards/board_id_here",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "boards", "board_id_here"]
-            },
-            "description": "Belirli bir board'ı ID ile getirir"
-          }
-        },
-        {
-          "name": "Update Board",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Güncellenmiş Board\",\n  \"description\": \"Güncellenmiş board açıklaması\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/api/boards/board_id_here",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "boards", "board_id_here"]
-            },
-            "description": "Mevcut bir board'ı günceller"
-          }
-        },
-        {
-          "name": "Delete Board",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "{{baseUrl}}/api/boards/board_id_here",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "boards", "board_id_here"]
-            },
-            "description": "Bir board'ı siler"
-          }
-        }
-      ]
-    },
-    {
-      "name": "Health Check",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/",
-          "host": ["{{baseUrl}}"],
-          "path": [""]
-        },
-        "description": "API'nin çalışıp çalışmadığını kontrol eder"
-      }
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:5000",
-      "type": "string",
-      "description": "API'nin base URL'i"
-    }
-  ]
-} 
+	"info": {
+		"_postman_id": "12345678-1234-1234-1234-123456789012",
+		"name": "Kanban Board API",
+		"description": "Kanban Board uygulaması için RESTful API collection'ı",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Boards",
+			"item": [
+				{
+					"name": "Get All Boards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/boards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"boards"
+							]
+						},
+						"description": "Tüm board'ları listeler"
+					}
+				},
+				{
+					"name": "Get Board by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/boards/test1234",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"boards",
+								"test1234"
+							]
+						},
+						"description": "Belirli bir board'u ID ile getirir"
+					}
+				},
+				{
+					"name": "Create New Board",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"My New Board\",\n  \"description\": \"Board açıklaması\",\n  \"color\": \"#6A6DCD\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/boards",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"boards"
+							]
+						},
+						"description": "Yeni board oluşturur"
+					}
+				},
+				{
+					"name": "Update Board",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Board Title\",\n  \"description\": \"Güncellenmiş açıklama\",\n  \"color\": \"#D93535\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/boards/test1234",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"boards",
+								"test1234"
+							]
+						},
+						"description": "Mevcut board'u günceller"
+					}
+				},
+				{
+					"name": "Delete Board",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/boards/:silinecekId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"boards",
+								":silinecekId"
+							],
+							"variable": [
+								{
+									"key": "silinecekId",
+									"value": "test1234",
+									"description": "Silinecek board'un ID'si"
+								}
+							]
+						},
+						"description": "Board'u ID ile siler"
+					}
+				}
+			],
+			"description": "Board yönetimi için API endpoints"
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get Tasks by Board ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tasks/test1234",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"test1234"
+							]
+						},
+						"description": "Belirli bir board'un tüm görevlerini getirir"
+					}
+				},
+				{
+					"name": "Create New Task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Yeni Görev\",\n  \"description\": \"Görev açıklaması\",\n  \"status\": \"todo\",\n  \"priority\": \"medium\",\n  \"color\": \"#00A88B\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tasks/test1234",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"test1234"
+							]
+						},
+						"description": "Belirtilen board'a yeni görev ekler"
+					}
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Güncellenmiş Görev\",\n  \"description\": \"Güncellenmiş açıklama\",\n  \"status\": \"inprogress\",\n  \"priority\": \"high\",\n  \"color\": \"#C340A1\",\n  \"_id\": \"task_id_buraya_gelecek\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tasks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						},
+						"description": "Mevcut görevi günceller"
+					}
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"_id\": \"task_id_buraya_gelecek\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tasks",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							]
+						},
+						"description": "Görevi siler"
+					}
+				}
+			],
+			"description": "Görev yönetimi için API endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:5000",
+			"type": "string"
+		}
+	]
+}

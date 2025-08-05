@@ -6,11 +6,12 @@ import axios from 'axios';
 import sideBarIcon from '../../../assets/side-bar.png'
 import Button from '../../../components/Button/Button';  // iki defa buton çünkü bir tanesi de klasör adı. ileride başka ortak component'ler eklenir diye kendi klasöründe tanımladım.
 import plusIcon from '../../../assets/plus.png';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
     const [boards, setBoards] = useState([]);
-    const [loading, setLoading] = useState();
-    const [Visited, setVisited] = useState([]);
+    const [loading, setLoading] = useState([]);
+    const [visited, setVisited] = useState([]);
     const [isSideBar, setIsSideBar] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [createData, setCreateData] = useState({
@@ -19,16 +20,7 @@ function HomePage() {
         color: ""
     });
 
-
-    const deneme_visited = [
-        {_id: '6890616b3f0a7bc9748c8c67', id: 'qshctsf2', title: 'dsaasd', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '6888eefcd9cd1adb467f5a2f', id: 'test1234', title: 'xxxxxxxxxxxxxxxxxxx', description: '', taskCount: 4, color: '#6A6DCD'}, 
-        {_id: '68890cc8ec007520ce98efc0', id: 'c66ekuk0', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890cc7ec007520ce98efbd', id: 'r70x6vu5', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890cc7ec007520ce98efba', id: 's2mdnbzl', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890cc6ec007520ce98efb7', id: 'nyamdidk', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}, 
-        {_id: '68890cc3ec007520ce98efb4', id: '4rek4i0s', title: 'id GEnerator foksoyonono taşıyınca oldo mooo?', description: 'çalışır babam, neden çalışmasın?', taskCount: 0, color: '#6A6DCD'}
-    ];
+    const navigate = useNavigate();
 
     const currentCreateData = useRef({});
 
@@ -36,10 +28,15 @@ function HomePage() {
         const fetchtAllBoards = async () => {
             try {
                 setLoading(true);
+                
                 const response = await axios.get('/api/boards/');  // amanın await unutma.
                 setBoards(response.data.data || []);
                 console.log(response.data.data);
+                
+                const visitedBoard = JSON.parse(localStorage.getItem('recentVisitedBoards')) || [];
 
+
+                setVisited(visitedBoard);
             } catch (err) {
                 console.error("Board Getirme Hatası", err);
             } finally {  // olmasaydı da olur muydu acaba, sonuçta bu scope'a almadan da setLoading(false); yapabilirdik.
@@ -145,9 +142,11 @@ function HomePage() {
 
                     </div>
                     <h3>Recent Boards</h3>
-                    {deneme_visited.slice(0, 5).map(board => (
-                        <div key={board._id} className="sidebar-board-item">
-                            {board.title}
+                    {visited
+                        .filter(b => b && b.title)  // null ve undefined kontrolü
+                        .slice(0, 5).map(b => (
+                        <div key={b.id} className="sidebar-board-item" onClick={(() => navigate(b.id))}>
+                            {b.title}
                         </div>
                     ))}
                 </div>

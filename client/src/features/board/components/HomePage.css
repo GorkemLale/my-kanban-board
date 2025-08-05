@@ -254,6 +254,24 @@
     opacity: 0.9;
 }
 
+.sidebar-board-item {
+    background-color: transparent;
+    border-radius: 4px;
+    color: white;
+    border: 1px solid white;
+    margin-bottom: 1px;
+    padding: 8px 0px;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-board-item:hover {
+    background-color: white;
+    color: #262626;
+    border: 2px solid #262626;
+
+}
+
 .boards {
     display: flex;
     justify-content: center;
